@@ -1,10 +1,10 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const { v4 } = require("uuid");
+const { v4 :uuidv4} = require("uuid");
 
 const app = express();
 app.use(express.json());
-mongoose.connect("mongodb://127.0.0.1:27017/expenses").then(() => {
+mongoose.connect("mongodb+srv://sakthisugesh:sakthi@cluster0.9q89p.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0").then(() => {
   console.log("connected to MongoDB");
 });
 const expensesSchema = new mongoose.Schema({
@@ -42,7 +42,7 @@ app.post("/api/expenses", async (req, res) => {
     return res.status(400).json({ message: "please provide both title and amount" });
   }
   const newExpense = new Expenses({
-    id: v4(),
+    id: uuidv4(),
     title,
     amount
   });
